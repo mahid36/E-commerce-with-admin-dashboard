@@ -18,9 +18,7 @@ return new class extends Migration
             $table->string('tag_id');
             $table->string('product_name');
             $table->string('slug');
-            $table->integer('price');
             $table->integer('discount');
-            $table->integer('discount_price');
             $table->string('short_des')->nullable();
             $table->longText('long_des');
             $table->string('preview');

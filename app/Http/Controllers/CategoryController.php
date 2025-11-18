@@ -14,7 +14,8 @@ class CategoryController extends Controller
 {
    function add_category() {
      $categories = Category::all();
-        return view('backend.category.category',compact('categories'));    }
+     $trashes = Category::onlyTrashed()->get();
+        return view('backend.category.category',compact('categories','trashes'));  }
         function store_category(Request $request){
         $request->validate([
             'category_name'=>['required', 'unique:categories'],
@@ -40,13 +41,28 @@ class CategoryController extends Controller
     }
 
     function category_delete($id){
-        $category_img = Category::find($id)->category_image;
-        $delete_from = public_path('uploads/category/'.$category_img);
-        unlink($delete_from);
-        Category::find($id)->delete();
+
+        Subcategory::where('category_id',$id)->delete();
+        Category::find($id)->Delete();
 
         return  back()->with('del', 'Category Deleted Successfully');
     }
+    function permanent_delete($id){
+         $category_img = Category::onlyTrashed()->find($id)->category_image;
+        $delete_from = public_path('uploads/category/'.$category_img);
+        unlink($delete_from);
+
+        Subcategory::where('category_id',$id)->delete();
+        Category::onlyTrashed()->find($id)->forceDelete();
+
+        return  back()->with('del', 'Category Deleted Successfully');
+    }
+
+    function restore($id){
+        Category::onlyTrashed()->find($id)->restore();
+        return back();
+    }
+
     function add_subcategory() {
         $categories = Category::all();
     return view('backend.category.subcategory',[
@@ -61,6 +77,11 @@ function store_subcategory(Request $request){
      'created_at'=> Carbon::now(),
 ]);
 return back()->with('success','Subcategory Added Successfully');
+}
+function del_subcategory($id){
+    Subcategory::find($id)->delete();
+    return back();
+
 }
 
 }

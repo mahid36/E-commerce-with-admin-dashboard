@@ -26,7 +26,7 @@
                             <img src="{{ asset('uploads/product/preview/') }}/{{ $product->preview }}" alt="">
                         </td>
                         <td>
-                            <a href="" class="btn btn-info">Inevntory</a>
+                            <a href="{{ route("inventory",$product->id) }}" class="btn btn-info">Inevntory</a>
                             <a href="" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>

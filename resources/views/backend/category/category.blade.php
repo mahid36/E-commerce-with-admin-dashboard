@@ -29,6 +29,34 @@
                 </table>
             </div>
         </div>
+         <div class="card">
+            <div class="card-header">
+                <h3>Trash List</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>SL</th>
+                        <th>Category</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                    @foreach ($trashes as $index=>$trash)
+                    <tr>
+                        <td>{{ $index+1 }}</td>
+                        <td>{{ $trash->category_name}}</td>
+                        <td>
+                            <img width="100" src="{{ asset('uploads/category') }}/{{ $trash->category_image }}" alt="">
+                        </td>
+                        <td>
+                            <a href="{{ route('restore',$trash->id) }}"class="btn btn-success">Restore</a>
+                            <a data-link="{{ route('permanent.delete', parameters: $trash->id) }}" class="btn btn-danger del">Delete</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
     </div>
     <div class="col-lg-4">
         <div class="card">

@@ -50,18 +50,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-8">
                             <div class="mb-3">
                                 <label class="form-label">Product Name</label>
                                 <input type="text" name="product_name" class="form-control">
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="mb-3">
-                                <label class="form-label">Product Price</label>
-                                <input type="text" name="price" class="form-control">
-                            </div>
-                        </div>
+
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Product Discount</label>

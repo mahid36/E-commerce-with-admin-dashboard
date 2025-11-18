@@ -24,8 +24,11 @@ Route::post('/update/password',[UserController::class,'update_password'])->middl
 Route::get('add/category', [CategoryController::class, 'add_category'])->middleware(['auth', 'verified'])->name('add.category');
 Route::post('store/category', [CategoryController::class, 'store_category'])->middleware(['auth', 'verified'])->name('store.category');
 Route::get('category/delete/{id}', [CategoryController::class, 'category_delete'])->middleware(['auth', 'verified'])->name('category.delete');
+Route::get('permanent/delete/{id}', [CategoryController::class, 'permanent_delete'])->middleware(['auth', 'verified'])->name('permanent.delete');
+Route::get('restore/{id}', [CategoryController::class, 'restore'])->middleware(['auth', 'verified'])->name('restore');
 Route::get('/add/subcategory', [CategoryController::class, 'add_subcategory'])->middleware(['auth', 'verified'])->name('add.subcategory');
 Route::post('/store/subcategory', [CategoryController::class, 'store_subcategory'])->middleware(['auth', 'verified'])->name('store.subcategory');
+Route::get('/del/subcategory/{id}', [CategoryController::class, 'del_subcategory'])->middleware(['auth', 'verified'])->name('del.subcategory');
 
 //Tag
 Route:: get('add/tag',[TagController::class,'add_tag'])->middleware(['auth', 'verified'])->name('add.tag');
@@ -40,6 +43,8 @@ Route::get('product/list',[ProductController::class,'product_list'])->middleware
 Route::get('add/variant',[ProductController::class,'add_variant'])->middleware(['auth', 'verified'])->name('add.variant');
 Route::post('add/color',[ProductController::class,'add_color'])->middleware(['auth', 'verified'])->name('add.color');
 Route::post('add/size',[ProductController::class,'add_size'])->middleware(['auth', 'verified'])->name('add.size');
+Route::get('inventory/{id}',[ProductController::class,'inventory'])->middleware(['auth', 'verified'])->name('inventory');
+Route::post('inventory/store/{id}',[ProductController::class,'inventory_store'])->middleware(['auth', 'verified'])->name('inventory.store');
 
 
 // Route::middleware('auth')->group(function () {

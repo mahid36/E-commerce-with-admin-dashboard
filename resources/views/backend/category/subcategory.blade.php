@@ -24,7 +24,7 @@
                                 <tr>
                                     <td>{{ $sub->subcategory_name }}</td>
                                     <td>
-                                        <a href="" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('del.subcategory',$sub->id) }}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
 

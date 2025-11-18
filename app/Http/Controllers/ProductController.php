@@ -9,10 +9,12 @@ use App\Models\Subcategory;
 use App\Models\Product;
 use App\Models\Tag;
 use App\Models\Color;
+use App\Models\Inventory;
 use App\Models\Size;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Carbon\Carbon;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
@@ -60,9 +62,7 @@ class ProductController extends Controller
             'tag_id' => $tags_id,
             'product_name' => $request->product_name,
             'slug' => $slug,
-            'price' => $request->price,
             'discount' => $request->discount,
-            'discount_price' => $request->price - ($request->price * $request->discount / 100),
             'short_des' => $request->short_des,
             'long_des' => $request->long_des,
             'preview' => $file_name,
@@ -109,6 +109,30 @@ class ProductController extends Controller
         Size::insert([
             'size_name'=>$request->size_name,
         ]);
-
+    }
+    function inventory($id){
+        $colors = Color::all();
+        $sizes = Size ::all();
+        $product_info = Product::find($id);
+        $inventories = Inventory::where('product_id',$id)->get();
+        return view('backend.product.inventory',[
+            'colors'=>$colors,
+            'sizes'=>$sizes,
+            'product_info'=>$product_info,
+            'inventories'=>$inventories,
+        ]);
+    }
+    function inventory_store(Request $request,$id){
+        $product_info = Product::find($id);
+        $discount = $product_info->discount;
+        Inventory::insert([
+            'product_id'=>$id,
+            'color_id'=>$request->color_id,
+            'size_id'=>$request->size_id,
+            'price'=>$request->price,
+            'quantity'=>$request->quantity,
+            'discount_price'=>$request->price - ($request->price * $discount / 100),
+        ]);
+        return back();
     }
 }
