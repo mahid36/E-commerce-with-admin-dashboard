@@ -4,7 +4,7 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
-                <h4>Inventory for:</h4>
+                <h4>Inventory for -</h4>
                 <h3 class="text-info">{{ $product_info->product_name }}</h3>
             </div>
             <div class="card-body">

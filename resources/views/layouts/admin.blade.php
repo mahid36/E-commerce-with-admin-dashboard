@@ -15,18 +15,18 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
     />
-	<link rel="stylesheet" href="{{ asset('frontend_asstets') }}/vendors/core/core.css">
+	<link rel="stylesheet" href="{{ asset('backend_assets') }}/vendors/core/core.css">
 	<!-- endinject -->
 	<!-- plugin css for this page -->
 	<!-- end plugin css for this page -->
 	<!-- inject:css -->
-	<link rel="stylesheet" href="{{ asset('frontend_asstets') }}/fonts/feather-font/css/iconfont.css">
-	<link rel="stylesheet" href="{{ asset('frontend_asstets') }}/vendors/flag-icon-css/css/flag-icon.min.css">
+	<link rel="stylesheet" href="{{ asset('backend_assets') }}/fonts/feather-font/css/iconfont.css">
+	<link rel="stylesheet" href="{{ asset('backend_assets') }}/vendors/flag-icon-css/css/flag-icon.min.css">
 	<!-- endinject -->
   <!-- Layout styles -->
-	<link rel="stylesheet" href="{{ asset('frontend_asstets') }}/css/demo_1/style.css">
+	<link rel="stylesheet" href="{{ asset('backend_assets') }}/css/demo_1/style.css">
   <!-- End layout styles -->
-  <link rel="shortcut icon" href="{{ asset('frontend_asstets') }}/images/favicon.png" />
+  <link rel="shortcut icon" href="{{ asset('backend_assets') }}/images/favicon.png" />
 </head>
 <body>
 	<div class="main-wrapper">
@@ -302,11 +302,11 @@
         <div class="theme-wrapper">
           <h6 class="text-muted mb-2">Light Theme:</h6>
           <a class="theme-item active" href="../../../demo_1/dashboard-one.html">
-            <img src="{{ asset('frontend_asstets') }}/images/screenshots/light.jpg" alt="light theme">
+            <img src="{{ asset('backend_assets') }}/images/screenshots/light.jpg" alt="light theme">
           </a>
           <h6 class="text-muted mb-2">Dark Theme:</h6>
           <a class="theme-item" href="../../../demo_2/dashboard-one.html">
-            <img src="{{ asset('frontend_asstets') }}/images/screenshots/dark.jpg" alt="light theme">
+            <img src="{{ asset('backend_assets') }}/images/screenshots/dark.jpg" alt="light theme">
           </a>
         </div>
       </div>
@@ -573,10 +573,10 @@
 	</div>
 
 	<!-- core:js -->
-	<script src="{{ asset('frontend_asstets') }}/vendors/core/core.js"></script>
-	<script src="{{ asset('frontend_asstets') }}/vendors/feather-icons/feather.min.js"></script>
+	<script src="{{ asset('backend_assets') }}/vendors/core/core.js"></script>
+	<script src="{{ asset('backend_assets') }}/vendors/feather-icons/feather.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="{{ asset('frontend_asstets') }}/js/template.js"></script>
+	<script src="{{ asset('backend_assets') }}/js/template.js"></script>
     <script
     src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
     integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="

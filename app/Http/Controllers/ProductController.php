@@ -18,6 +18,7 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
+
     function add_product() {
         $categories = Category::all();
         $subcategories = Subcategory::all();
@@ -37,7 +38,8 @@ class ProductController extends Controller
             'subcategory_id' => 'required',
             'tag_id' => 'required|array',
             'product_name' => 'required|string|max:255',
-            'price' => 'required|numeric',
+            'short_des' => 'nullable|string|max:255',
+             'long_des' => 'nullable|string',
             'discount' => 'nullable|numeric|min:0|max:100',
             'preview' => 'required|image|mimes:jpg,png,jpeg,webp|max:2048',
         ]);
@@ -53,21 +55,22 @@ class ProductController extends Controller
 
         $manager = new ImageManager(new Driver());
         $image = $manager->read($preview);
+        $image-> scale(width:500, height:400);
+
         $image->save(public_path('uploads/product/preview/' . $file_name));
-
-
         $product_id = Product::insertGetId([
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
             'tag_id' => $tags_id,
             'product_name' => $request->product_name,
             'slug' => $slug,
-            'discount' => $request->discount,
+            'discount' => $request->discount ?? 0,
             'short_des' => $request->short_des,
-            'long_des' => $request->long_des,
+            'long_des' => $request->long_des ?? '',
             'preview' => $file_name,
             'created_at' => Carbon::now(),
         ]);
+
         foreach($request->gallery as $gal){
             $extension = $gal->extension();
             $file_name = uniqid() . '.' . $extension;
