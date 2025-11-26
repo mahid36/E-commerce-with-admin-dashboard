@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Inventory;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -23,8 +24,26 @@ class FrontendController extends Controller
     function product_details($slug){
         $product_id = Product::where('slug',$slug)->first()->id;
         $product_info = Product::find($product_id);
+        $simillar_product =Product::where('category_id', $product_info->category_id)->where('id','!=',$product_id)->get();
+
+        //Colors-->
+
+        $available_colors = Inventory::where('product_id',$product_id)
+        ->groupBy('color_id')
+        ->selectRaw('sum(color_id) as sum, color_id')
+        ->get();
+
+        //size---
+
+        $available_sizes = Inventory::where('product_id',$product_id)
+        ->groupBy('size_id')
+        ->selectRaw('sum(size_id) as sum, size_id')
+        ->get();
         return view('frontend.product_details',[
             'product_info' =>$product_info,
+            'available_colors'=>$available_colors,
+            'available_sizes'=>$available_sizes,
+            'simillar_product'=>  $simillar_product,
         ]);
     }
 }

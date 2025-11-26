@@ -9,15 +9,18 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[FrontendController::class,'index'])->middleware(['auth', 'verified'])->name('index');
-//product details
+
+    //<--------E-commerce-product details section-------> :-
 
 Route::get('/product/details/{slug}',[FrontendController::class,'product_details'])->middleware(['auth', 'verified'])->name('product.details');
 
+//   <--------Dashboard section------> :
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-//user
+
+
 Route::get('/edit/profile',[UserController::class,'edit_profile'])->middleware(['auth', 'verified'])->name('edit_profile');
 Route::post('/update/profile',[UserController::class,'update_profile'])->middleware(['auth', 'verified'])->name('update_profile');
 Route::post('/update/password',[UserController::class,'update_password'])->middleware(['auth', 'verified'])->name('update_password');

@@ -59,84 +59,41 @@
 								<div class="prt_04 mb-2">
 									<p class="d-flex align-items-center mb-0 text-dark ft-medium">Color:</p>
 									<div class="text-left">
-										<div class="form-check form-option form-check-inline mb-1">
-											<input class="form-check-input" type="radio" name="color8" id="white8">
-											<label class="form-option-label rounded-circle" for="white8"><span class="form-option-color rounded-circle blc7"></span></label>
+                                        @foreach ($available_colors as $color)
+                                        @if ($color->rel_to_color->color_name =='NA')
+                                        <div class="form-check form-option form-check-inline mb-1">
+											<input class="form-check-input" type="radio" name="color8" id="color{{ $color->color_id }}" value="color{{ $color->color_id }}" checked>
+											<label class="form-option-label rounded-circle" for="color{{ $color->color_id }}"><span class="form-option-color rounded-circle" style="background:{{ $color->rel_to_color->color_code }} ">NA</span></label>
 										</div>
-										<div class="form-check form-option form-check-inline mb-1">
-											<input class="form-check-input" type="radio" name="color8" id="blue8">
-											<label class="form-option-label rounded-circle" for="blue8"><span class="form-option-color rounded-circle blc2"></span></label>
+                                        @else
+                                        <div class="form-check form-option form-check-inline mb-1">
+											<input class="form-check-input" type="radio" name="color8" id="color{{ $color->color_id }}" value="color{{ $color->color_id }}">
+											<label class="form-option-label rounded-circle" for="color{{ $color->color_id }}"><span class="form-option-color rounded-circle" style="background:{{ $color->rel_to_color->color_code }} "></span></label>
 										</div>
-										<div class="form-check form-option form-check-inline mb-1">
-											<input class="form-check-input" type="radio" name="color8" id="yellow8">
-											<label class="form-option-label rounded-circle" for="yellow8"><span class="form-option-color rounded-circle blc5"></span></label>
-										</div>
-										<div class="form-check form-option form-check-inline mb-1">
-											<input class="form-check-input" type="radio" name="color8" id="pink8">
-											<label class="form-option-label rounded-circle" for="pink8"><span class="form-option-color rounded-circle blc3"></span></label>
-										</div>
-										<div class="form-check form-option form-check-inline mb-1">
-											<input class="form-check-input" type="radio" name="color8" id="red">
-											<label class="form-option-label rounded-circle" for="red"><span class="form-option-color rounded-circle blc4"></span></label>
-										</div>
-										<div class="form-check form-option form-check-inline mb-1">
-											<input class="form-check-input" type="radio" name="color8" id="green">
-											<label class="form-option-label rounded-circle" for="green"><span class="form-option-color rounded-circle blc6"></span></label>
-										</div>
+                                        @endif
+                                          @endforeach
+
+
 									</div>
 								</div>
 
 								<div class="prt_04 mb-4">
 									<p class="d-flex align-items-center mb-0 text-dark ft-medium">Size:</p>
 									<div class="text-left pb-0 pt-2">
-										<div class="form-check size-option form-option form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="28" checked="">
-											<label class="form-option-label" for="28">28</label>
+                                        @foreach ($available_sizes as $size )
+                                        @if ($size->rel_to_size->size_name =='NA')
+                                        <div class="form-check size-option form-option form-check-inline mb-2">
+											<input class="form-check-input" type="radio" name="size" id="size{{ $size->rel_to_size->size_name }}" value="size{{ $size->rel_to_size->size_name }}" checked>
+											<label class="form-option-label" for="size{{ $size->rel_to_size->size_name }}">{{ $size->rel_to_size->size_name }}</label>
 										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="30">
-											<label class="form-option-label" for="30">30</label>
+                                        @else
+                                        <div class="form-check size-option form-option form-check-inline mb-2">
+											<input class="form-check-input" type="radio" name="size" id="size{{ $size->rel_to_size->size_name }}" value="size{{ $size->rel_to_size->size_name }}">
+											<label class="form-option-label" for="size{{ $size->rel_to_size->size_name }}">{{ $size->rel_to_size->size_name }}</label>
 										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="32">
-											<label class="form-option-label" for="32">32</label>
-										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="34">
-											<label class="form-option-label" for="34">34</label>
-										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="36">
-											<label class="form-option-label" for="36">36</label>
-										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="38">
-											<label class="form-option-label" for="38">38</label>
-										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="40">
-											<label class="form-option-label" for="40">40</label>
-										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="42">
-											<label class="form-option-label" for="42">42</label>
-										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="44">
-											<label class="form-option-label" for="44">44</label>
-										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="46">
-											<label class="form-option-label" for="46">46</label>
-										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="48">
-											<label class="form-option-label" for="48">48</label>
-										</div>
-										<div class="form-check form-option size-option  form-check-inline mb-2">
-											<input class="form-check-input" type="radio" name="size" id="50">
-											<label class="form-option-label" for="50">50</label>
-										</div>
+                                        @endif
+                                        @endforeach
+
 									</div>
 								</div>
 
@@ -417,8 +374,7 @@
 					<div class="row justify-content-center">
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 							<div class="sec_title position-relative text-center">
-								<h2 class="off_title">Similar Products</h2>
-								<h3 class="ft-bold pt-3">Matching Producta</h3>
+								<h3 class="ft-bold pt-3">Matching Products</h3>
 							</div>
 						</div>
 					</div>
@@ -428,142 +384,31 @@
 							<div class="slide_items">
 
 								<!-- single Item -->
+                                @foreach (  $simillar_product as $simillar )
 								<div class="single_itesm">
 									<div class="product_grid card b-0 mb-0">
-										<div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-										<div class="card-body p-0">
-											<div class="shop_thumb position-relative">
-												<a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="assets/img/product/16.png" alt="..."></a>
-											</div>
-										</div>
-										<div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-											<div class="text-left">
-												<div class="text-center">
-													<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Half Running Set</a></h5>
-													<div class="elis_rty"><span class="ft-bold fs-md text-dark">$119.00</span></div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+                                        @if ($simillar->discount)
 
-								<!-- single Item -->
-								<div class="single_itesm">
-									<div class="product_grid card b-0 mb-0">
-										<div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">New</div>
-										<div class="card-body p-0">
-											<div class="shop_thumb position-relative">
-												<a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="assets/img/product/17.png" alt="..."></a>
-											</div>
-										</div>
-										<div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-											<div class="text-left">
-												<div class="text-center">
-													<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Formal Men Lowers</a></h5>
-													<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$129.00</span><span class="ft-bold theme-cl fs-md">$79.00</span></div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+										<div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">-{{ $simillar->discount }}%</div>
 
-								<!-- single Item -->
-								<div class="single_itesm">
-									<div class="product_grid card b-0 mb-0">
+                                        @endif
 										<div class="card-body p-0">
 											<div class="shop_thumb position-relative">
-												<a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="assets/img/product/18.png" alt="..."></a>
+												<a class="card-img-top d-block overflow-hidden" href="{{ route('product.details',$simillar->slug) }}"><img class="card-img-top" src="{{ asset('uploads/product/preview') }}/{{ $simillar->preview }}" alt="..."></a>
 											</div>
 										</div>
 										<div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
 											<div class="text-left">
 												<div class="text-center">
-													<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Half Running Suit</a></h5>
-													<div class="elis_rty"><span class="ft-bold fs-md text-dark">$80.00</span></div>
+													<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="{{ route('product.details',$simillar->slug) }}">{{ $simillar->product_name }}</a></h5>
+													<div class="elis_rty"><span class="ft-bold fs-md text-dark">&#2547;{{ optional($simillar->rel_to_inv->first())->price}}</span></div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+                                 @endforeach
 
-								<!-- single Item -->
-								<div class="single_itesm">
-									<div class="product_grid card b-0 mb-0">
-										<div class="badge bg-warning text-white position-absolute ft-regular ab-left text-upper">Hot</div>
-										<div class="card-body p-0">
-											<div class="shop_thumb position-relative">
-												<a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="assets/img/product/19.png" alt="..."></a>
-											</div>
-										</div>
-										<div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-											<div class="text-left">
-												<div class="text-center">
-													<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Half Fancy Lady Dress</a></h5>
-													<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$149.00</span><span class="ft-bold theme-cl fs-md">$110.00</span></div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- single Item -->
-								<div class="single_itesm">
-									<div class="product_grid card b-0 mb-0">
-										<div class="card-body p-0">
-											<div class="shop_thumb position-relative">
-												<a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="assets/img/product/20.png" alt="..."></a>
-											</div>
-										</div>
-										<div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-											<div class="text-left">
-												<div class="text-center">
-													<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Flix Flox Jeans</a></h5>
-													<div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$90.00</span><span class="ft-bold theme-cl fs-md">$49.00</span></div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- single Item -->
-								<div class="single_itesm">
-									<div class="product_grid card b-0 mb-0">
-										<div class="badge bg-danger text-white position-absolute ft-regular ab-left text-upper">Hot</div>
-										<div class="card-body p-0">
-											<div class="shop_thumb position-relative">
-												<a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="assets/img/product/21.png" alt="..."></a>
-											</div>
-										</div>
-										<div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-											<div class="text-left">
-												<div class="text-center">
-													<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Fancy Salwar Suits</a></h5>
-													<div class="elis_rty"><span class="ft-bold fs-md text-dark">$114.00</span></div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- single Item -->
-								<div class="single_itesm">
-									<div class="product_grid card b-0 mb-0">
-										<div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-										<div class="card-body p-0">
-											<div class="shop_thumb position-relative">
-												<a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="assets/img/product/22.png" alt="..."></a>
-											</div>
-										</div>
-										<div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-											<div class="text-left">
-												<div class="text-center">
-													<h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Collot Full Dress</a></h5>
-													<div class="elis_rty"><span class="ft-bold theme-cl fs-md text-dark">$120.00</span></div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
 
 							</div>
 						</div>
