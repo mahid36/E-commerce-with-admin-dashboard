@@ -510,7 +510,7 @@
                                         <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
                                             <div class="text-left mfliud">
                                                 <div class="elso_titl"><span class="small">{{ $recent->rel_to_category?->category_name }}</span></div>
-                                                <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">Smart 43 Inch LED</a></h5>
+                                                <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="{{ route('product.details',$recent->slug) }}">{{ $recent->product_name }}</a></h5>
                                                 <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
                                                     <i class="fas fa-star filled"></i>
                                                     <i class="fas fa-star filled"></i>

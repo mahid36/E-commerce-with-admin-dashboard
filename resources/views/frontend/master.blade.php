@@ -63,9 +63,14 @@
 									<li><a href="javascript:void(0);" class="dropdown-item medium text-muted"><img src="{{asset('frontend_asset')}}/img/2.jpg" alt="fr" width="16" height="11" /><span>Français</span></a></li>
 								</ul>
 							</div>
-
 							<div class="currency-selector dropdown js-dropdown float-right mr-3">
-								<a href="javascript:void(0);" class="text-muted medium"><i class="lni lni-user mr-1"></i>Sign In / Register</a>
+                                @auth('customer')
+                                <a href="{{ route('customer.profile') }}">{{ Auth::guard('customer')->user()->name }}</a>
+
+                                @else
+								<a href="{{ route('customer.login') }}" class="text-muted medium"><i class="lni lni-user mr-1"></i>Sign In</a>
+								<a href="{{ route('customer.register') }}" class="text-muted medium"><i class="lni lni-user mr-1"></i>Register</a>
+                                @endauth
 							</div>
 						</div>
 

@@ -46,4 +46,10 @@ class FrontendController extends Controller
             'simillar_product'=>  $simillar_product,
         ]);
     }
+    function customer_register(){
+         return view('frontend.register');
+    }
+    function customer_login(){
+        return view("frontend.login");
+    }
 }

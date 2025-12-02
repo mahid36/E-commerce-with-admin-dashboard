@@ -7,12 +7,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController;
 
 Route::get('/',[FrontendController::class,'index'])->middleware(['auth', 'verified'])->name('index');
 
     //<--------E-commerce-product details section-------> :-
 
 Route::get('/product/details/{slug}',[FrontendController::class,'product_details'])->middleware(['auth', 'verified'])->name('product.details');
+                //<--------E-commerce-product details section------->
+
+ //login + register--->
+Route::get('/customer/register',[FrontendController::class,'customer_register'])->middleware(['auth', 'verified'])->name('customer.register');
+Route::get('/customer/login',[FrontendController::class,'customer_login'])->middleware(['auth', 'verified'])->name('customer.login');
 
 //   <--------Dashboard section------> :
 Route::get('/dashboard', function () {
@@ -54,6 +60,16 @@ Route::post('add/color',[ProductController::class,'add_color'])->middleware(['au
 Route::post('add/size',[ProductController::class,'add_size'])->middleware(['auth', 'verified'])->name('add.size');
 Route::get('inventory/{id}',[ProductController::class,'inventory'])->middleware(['auth', 'verified'])->name('inventory');
 Route::post('inventory/store/{id}',[ProductController::class,'inventory_store'])->middleware(['auth', 'verified'])->name('inventory.store');
+
+// <-------Customer------>
+Route::post('customer/store',[CustomerController::class,'customer_store'])->middleware(['auth', 'verified'])->name('customer.store');
+Route::post('customer/signin', [CustomerController::class, 'customer_signin'])->name('customer.signin');
+
+Route::get('customer/profile', [CustomerController::class, 'customer_profile'])->name('customer.profile');
+Route::get('customer/logout', [CustomerController::class, 'customer_logout'])->middleware('auth:customer') ->name('customer.logout');
+Route::post('customer/update', [CustomerController::class, 'customer_update'])->middleware('auth:customer') ->name('customer.update');
+
+
 
 
 // Route::middleware('auth')->group(function () {
