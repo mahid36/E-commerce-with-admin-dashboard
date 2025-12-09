@@ -12,6 +12,7 @@ class Customer extends Authenticatable
         use HasFactory, Notifiable;
 
         protected $guard = 'customer';
+        protected $guarded = ['id'];
 
         protected $hidden = [
             'password',
