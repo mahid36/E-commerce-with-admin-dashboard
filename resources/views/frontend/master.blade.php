@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="author" content="Themezhub" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Kumo- Fashion eCommerce HTML Template</title>
 
         <!-- Custom CSS -->
@@ -439,6 +439,8 @@
 		<script src="{{asset('frontend_asset')}}/js/snackbar.min.js"></script>
 		<script src="{{asset('frontend_asset')}}/js/jQuery.style.switcher.js"></script>
 		<script src="{{asset('frontend_asset')}}/js/custom.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 		<!-- ============================================================== -->
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
@@ -469,6 +471,7 @@
 				document.getElementById("Search").style.display = "none";
 			}
 		</script>
+        @yield('footer_script')
 
 	</body>
 

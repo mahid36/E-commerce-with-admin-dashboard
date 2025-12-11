@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProductController;
@@ -69,6 +70,10 @@ Route::get('customer/profile', [CustomerController::class, 'customer_profile'])-
 Route::get('customer/logout', [CustomerController::class, 'customer_logout'])->middleware('auth:customer') ->name('customer.logout');
 Route::post('customer/update', [CustomerController::class, 'customer_update'])->middleware('auth:customer') ->name('customer.update');
 
+
+//<-----Cart----->
+Route::post('/getSize',[CartController::class,'getSize']);
+Route::post('/getQuantity',[CartController::class,'getquantity']);
 
 
 
