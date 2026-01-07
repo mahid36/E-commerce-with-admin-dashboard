@@ -116,7 +116,7 @@
 										<li>
 											<a href="#" onclick="openCart()">
 												<div class="d-flex align-items-center justify-content-between">
-													<i class="fas fa-shopping-basket fs-lg"></i><span class="dn-counter theme-bg">3</span>
+													<i class="fas fa-shopping-basket fs-lg"></i><span class="dn-counter theme-bg">{{ App\Models\Cart:: where('customer_id',Auth::guard('customer')->id())->count() }}</span>
 												</div>
 											</a>
 										</li>
@@ -356,55 +356,41 @@
 
 						<div class="cart_select_items py-2">
 							<!-- Single Item -->
+                             @php $total = 0; @endphp
+                            @foreach (App\Models\Cart:: where('customer_id',Auth::guard('customer')->id())->get() as $cart)
+
+
 							<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
 								<div class="cart_single d-flex align-items-center">
 									<div class="cart_selected_single_thumb">
-										<a href="#"><img src="{{asset('frontend_asset')}}/img/product/4.jpg" width="60" class="img-fluid" alt="" /></a>
+										<a href="#"><img src="{{asset('uploads/product/preview')}}/{{ $cart->rel_to_product->preview }}" width="60" class="img-fluid" alt="" /></a>
 									</div>
 									<div class="cart_single_caption pl-2">
-										<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Women Striped Shirt Dress</h4>
-										<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
-										<h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
+										<h4 class="product_title fs-sm ft-medium mb-0 lh-1">{{ $cart->rel_to_product->product_name}}</h4>
+										<p class="mb-2"><span class="text-dark ft-medium small">Size:{{ $cart->rel_to_size->size_name }}</span>,
+                                            <span class="text-dark small">Color:{{ $cart->rel_to_color->color_name }}</span></p>
+										<h4 class="fs-md ft-medium mb-0 lh-1">&#2547;{{ App\Models\Inventory::where('product_id',$cart->product_id)->where('color_id',$cart->color_id)->where('size_id',$cart->size_id)->first()->discount_price }}x{{ $cart->quantity }}</h4>
 									</div>
 								</div>
-								<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+								<div class="fls_last">
+                                    <a href="{{ route('remove.cart', $cart->id) }}" class="close_slide gray">
+                                        <i class="ti-close">
+                                        </i>
+                                    </a>
+                                </div>
 							</div>
 
-							<!-- Single Item -->
-							<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
-								<div class="cart_single d-flex align-items-center">
-									<div class="cart_selected_single_thumb">
-										<a href="#"><img src="{{asset('frontend_asset')}}/img/product/7.jpg" width="60" class="img-fluid" alt="" /></a>
-									</div>
-									<div class="cart_single_caption pl-2">
-										<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Floral Print Jumpsuit</h4>
-										<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
-										<h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
-									</div>
-								</div>
-								<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
-							</div>
+                            @php
+                            $total += App\Models\Inventory::where('product_id',$cart->product_id)->where('color_id',$cart->color_id)->where('size_id',$cart->size_id)->first()->discount_price * $cart->quantity;
+                            @endphp
+                             @endforeach
 
-							<!-- Single Item -->
-							<div class="d-flex align-items-center justify-content-between px-3 py-3">
-								<div class="cart_single d-flex align-items-center">
-									<div class="cart_selected_single_thumb">
-										<a href="#"><img src="{{asset('frontend_asset')}}/img/product/8.jpg" width="60" class="img-fluid" alt="" /></a>
-									</div>
-									<div class="cart_single_caption pl-2">
-										<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Solid A-Line Dress</h4>
-										<p class="mb-2"><span class="text-dark ft-medium small">30</span>, <span class="text-dark small">Blue</span></p>
-										<h4 class="fs-md ft-medium mb-0 lh-1">$100</h4>
-									</div>
-								</div>
-								<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
-							</div>
 
 						</div>
 
 						<div class="d-flex align-items-center justify-content-between br-top br-bottom px-3 py-3">
 							<h6 class="mb-0">Subtotal</h6>
-							<h3 class="mb-0 ft-medium">$1023</h3>
+							<h3 class="mb-0 ft-medium">&#2547;{{ $total }}</h3>
 						</div>
 
 						<div class="cart_action px-3 py-3">

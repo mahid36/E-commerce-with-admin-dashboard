@@ -74,6 +74,8 @@ Route::post('customer/update', [CustomerController::class, 'customer_update'])->
 //<-----Cart----->
 Route::post('/getSize',[CartController::class,'getSize']);
 Route::post('/getQuantity',[CartController::class,'getquantity']);
+Route::post('/add/cart',[CartController::class,'add_cart'])->name('add.cart');
+Route::get('/remove/cart/{id}',[CartController::class,'remove_cart'])->name('remove.cart');
 
 
 

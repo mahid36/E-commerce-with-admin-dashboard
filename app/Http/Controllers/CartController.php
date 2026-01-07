@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Inventory;
-
+use App\Models\cart;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     function getSize(Request $request){
@@ -40,5 +42,21 @@ class CartController extends Controller
             $str = '<strong id="quan" class="text-success" >' . $quantity . ' In Stock</strong>';
         }
         return response()->json(['quantity' => $str, 'price' => $price, 'discount_price'=>$discount_price]);
+    }
+
+    function add_cart(Request $request){
+        Cart::insert([
+            'customer_id'=>Auth::guard('customer')->id(),
+            'product_id'=>$request->product_id,
+            'color_id'=>$request->color_id,
+            'size_id'=>$request->size_id,
+            'quantity'=>$request->quantity,
+            'created_at'=>Carbon::now(),
+        ]);
+        return back()->with('cart','Cart added successfully');
+    }
+    function remove_cart($id){
+        Cart::find($id)->delete();
+        return back();
     }
 }

@@ -58,7 +58,8 @@
                     <div class="prt_03 mb-4">
                         <p>{{ $product_info->short_desp }}</p>
                     </div>
-
+                <form action="{{ route('add.cart') }}" method="POST">
+                    @csrf
                     <div class="prt_04 mb-2">
                         <p class="d-flex align-items-center mb-0 text-dark ft-medium">Color:</p>
                         <div class="text-left">
@@ -104,14 +105,37 @@
                         <div class="form-row mb-7">
                             <div class="col-12 col-lg-auto">
                                 <!-- Quantity -->
-                                <select class="mb-2 custom-select">
-                                    <option value="1" selected="">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
+                                <div style="display:inline-flex; align-items:center; gap:6px; margin-top: 7px;">
+
+            <button type="button" id="decrementBtn"
+                    style="width:30px; height:30px; background:#da0404; border:1px solid #f3f1f1;">
+                -
+            </button>
+
+            <input id="counter"
+                    name="quantity"
+                    type="text"
+                    value="0"
+                    readonly
+                    style="
+                    width:40px;
+                    height:30px;
+                    text-align:center;
+                    font-weight:bold;
+                    border:1px solid #ffffff;
+                    ">
+
+            <button type="button" id="incrementBtn"
+                    style="width:30px; height:30px; background:#28a745; color:#fff; border:1px solid #28a745;">
+                +
+            </button>
+
+</div>
+
+
+
                             </div>
+                            <input type="hidden" value="{{ $product_info->id }}" name="product_id">
                             <div class="col-12 col-lg">
                                 <!-- Submit -->
                                 @auth('customer')
@@ -133,7 +157,7 @@
                             </div>
                         </div>
                     </div>
-
+                </form>
                     <div class="prt_06">
                         <p class="mb-0 d-flex align-items-center">
                             <span class="mr-4">Share:</span>
@@ -542,4 +566,49 @@
 
     })
 </script>
+<script>
+let counter = 1;
+
+function updateDisplay() {
+    document.getElementById("counter").value = counter;
+}
+
+function increment() {
+    counter++;
+    updateDisplay();
+}
+
+function decrement() {
+    if (counter > 1) {
+        counter--;
+        updateDisplay();
+    }
+}
+
+document.getElementById("incrementBtn").addEventListener("click", increment);
+document.getElementById("decrementBtn").addEventListener("click", decrement);
+
+updateDisplay();
+</script>
+@if (session('cart'))
+<script>
+    const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "{{ (session('cart')) }}"
+});
+</script>
+
+@endif
+
 @endsection
