@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CouponController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 
@@ -20,6 +22,7 @@ Route::get('/product/details/{slug}',[FrontendController::class,'product_details
  //login + register--->
 Route::get('/customer/register',[FrontendController::class,'customer_register'])->middleware(['auth', 'verified'])->name('customer.register');
 Route::get('/customer/login',[FrontendController::class,'customer_login'])->middleware(['auth', 'verified'])->name('customer.login');
+Route::get('checkout',[FrontendController::class,'checkout'])->middleware(['auth', 'verified'])->name('checkout');
 
 //   <--------Dashboard section------> :
 Route::get('/dashboard', function () {
@@ -76,6 +79,14 @@ Route::post('/getSize',[CartController::class,'getSize']);
 Route::post('/getQuantity',[CartController::class,'getquantity']);
 Route::post('/add/cart',[CartController::class,'add_cart'])->name('add.cart');
 Route::get('/remove/cart/{id}',[CartController::class,'remove_cart'])->name('remove.cart');
+
+//Coupon
+Route::get('coupon',[CouponController::class,'coupon'])->name('coupon');
+Route::post('/add/coupon',[CouponController::class,'add_coupon'])->name('add.coupon');
+Route::get('/delete/coupon/{id}',[CouponController::class,'delete_coupon'])->name('delete.coupon');
+
+//Checkout//
+Route::post('getCity',[CheckoutController::class,'getCity']);
 
 
 

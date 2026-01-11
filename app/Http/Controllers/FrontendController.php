@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Inventory;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use App\Models\Cart;
+use App\Models\Country;
+use App\Models\City;
+use App\Models\Coupon;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -51,5 +57,34 @@ class FrontendController extends Controller
     }
     function customer_login(){
         return view("frontend.login");
+    }
+    function checkout(Request $request){
+        $carts= Cart:: where('customer_id',Auth::guard('customer')->id())->get();
+        $coupon = $request->coupon;
+        $coupon_dis = 0;
+        if($coupon){
+            if(Coupon::where('coupon',$coupon)->exists()){
+                if(Carbon::now()->format('Y-m-d')<=Coupon::where('coupon',$coupon)->first()->validity){
+                 $coupon_dis = Coupon::where('coupon',$coupon)->first()->amount;
+                }
+                else{
+                    return back()->with('not_exists','Coupon code expired');
+
+                }
+
+            }
+             else{
+                    return back()->with('not_exists','Invalid coupon code');
+                }
+        }
+        $countries = Country::all();
+        $cities = City::all();
+        return view('frontend.checkout',[
+            'carts'=> $carts,
+            'coupon_dis'=>$coupon_dis,
+            'countries'=>$countries,
+            'cities'=>$cities,
+        ]);
+
     }
 }

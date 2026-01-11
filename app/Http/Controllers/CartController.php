@@ -45,7 +45,14 @@ class CartController extends Controller
     }
 
     function add_cart(Request $request){
-        Cart::insert([
+        if(Cart::where('customer_id',Auth::guard('customer')->id())->where('product_id',$request->product_id)->where('color_id',$request->color_id)->where('size_id',$request->size_id)->exists()){
+
+         Cart::where('customer_id',Auth::guard('customer')->id())->where('product_id',$request->product_id)->where('color_id',$request->color_id)->where('size_id',$request->size_id)->increment('quantity',$request->quantity);
+
+          return back()->with('cart','Cart added successfully');
+        }
+        else{
+            Cart::insert([
             'customer_id'=>Auth::guard('customer')->id(),
             'product_id'=>$request->product_id,
             'color_id'=>$request->color_id,
@@ -54,6 +61,8 @@ class CartController extends Controller
             'created_at'=>Carbon::now(),
         ]);
         return back()->with('cart','Cart added successfully');
+        }
+
     }
     function remove_cart($id){
         Cart::find($id)->delete();

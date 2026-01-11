@@ -78,7 +78,7 @@
 				</div>
 			</div>
 
-			<div class="headd-sty header">
+			<div class="head-sty header">
 				<div class="container">
 					<div class="row">
 						<div class="col-xl-12 col-lg-12 col-md-12">
@@ -109,7 +109,7 @@
 											</div>
 										</li>
 										<li>
-											<a href="#" onclick="openWishlist()">
+											<a href="" onclick="openWishlist()">
 												<i class="far fa-heart fs-lg"></i><span class="dn-counter bg-success">2</span>
 											</a>
 										</li>
@@ -289,6 +289,8 @@
 
 						<div class="cart_select_items py-2">
 							<!-- Single Item -->
+
+
 							<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
 								<div class="cart_single d-flex align-items-center">
 									<div class="cart_selected_single_thumb">
@@ -303,38 +305,8 @@
 								<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
 							</div>
 
-							<!-- Single Item -->
-							<div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
-								<div class="cart_single d-flex align-items-center">
-									<div class="cart_selected_single_thumb">
-										<a href="#"><img src="{{asset('frontend_asset')}}/img/product/7.jpg" width="60" class="img-fluid" alt="" /></a>
-									</div>
-									<div class="cart_single_caption pl-2">
-										<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Floral Print Jumpsuit</h4>
-										<p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
-										<h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
-									</div>
-								</div>
-								<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
-							</div>
-
-							<!-- Single Item -->
-							<div class="d-flex align-items-center justify-content-between px-3 py-3">
-								<div class="cart_single d-flex align-items-center">
-									<div class="cart_selected_single_thumb">
-										<a href="#"><img src="{{asset('frontend_asset')}}/img/product/8.jpg" width="60" class="img-fluid" alt="" /></a>
-									</div>
-									<div class="cart_single_caption pl-2">
-										<h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Solid A-Line Dress</h4>
-										<p class="mb-2"><span class="text-dark ft-medium small">30</span>, <span class="text-dark small">Blue</span></p>
-										<h4 class="fs-md ft-medium mb-0 lh-1">$100</h4>
-									</div>
-								</div>
-								<div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
-							</div>
 
 						</div>
-
 						<div class="cart_action px-3 py-3">
 							<div class="form-group">
 								<button type="button" class="btn d-block full-width btn-dark-light">View Whishlist</button>
@@ -356,7 +328,8 @@
 
 						<div class="cart_select_items py-2">
 							<!-- Single Item -->
-                             @php $total = 0; @endphp
+                             @php $total = 0;
+                             @endphp
                             @foreach (App\Models\Cart:: where('customer_id',Auth::guard('customer')->id())->get() as $cart)
 
 
@@ -395,7 +368,7 @@
 
 						<div class="cart_action px-3 py-3">
 							<div class="form-group">
-								<button type="button" class="btn d-block full-width btn-dark-light">View Cart</button>
+								<a href="{{ route('checkout') }}" type="button" class="btn d-block full-width btn-dark-light">Checkout</a>
 							</div>
 						</div>
 
