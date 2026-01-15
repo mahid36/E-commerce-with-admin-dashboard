@@ -29,7 +29,7 @@
 							</div>
 						</div>
 					</div>
-                    <form action="" method="POST">
+                    <form action="{{ route('store.checkout') }}" method="POST">
                         @csrf
 					<div class="row justify-content-between">
 						<div class="col-12 col-lg-7 col-md-12">
@@ -40,33 +40,33 @@
 									<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 										<div class="form-group">
 											<label class="text-dark">Full Name *</label>
-											<input type="text" name="name" class="form-control" placeholder="Full Name" />
+											<input type="text" name="name" class="form-control" placeholder="Full Name" value="{{ Auth::guard('customer')->user()->name }}"/>
 										</div>
 									</div>
 									<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 										<div class="form-group">
 											<label class="text-dark">Email *</label>
-											<input type="email" name="email" class="form-control" placeholder="Email" />
+											<input type="email" name="email" class="form-control" placeholder="Email" value="{{ Auth::guard('customer')->user()->email }}"/>
 										</div>
 									</div>
 
 									<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 										<div class="form-group">
 											<label class="text-dark">Company</label>
-											<input type="text" name="company" class="form-control" placeholder="Company Name (optional)" />
+											<input type="text" name="company" class="form-control" placeholder="Company Name (optional)" value="{{ old('company') }}"/>
 										</div>
 									</div>
 									<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 										<div class="form-group">
 											<label class="text-dark">Mobile Number *</label>
-											<input type="text" name="mobile" class="form-control" placeholder="Mobile Number" />
+											<input type="text" name="mobile" class="form-control" placeholder="Mobile Number" value="{{ old('mobile') }}"/>
 										</div>
 									</div>
 
 									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										<div class="form-group">
 											<label class="text-dark">Address *</label>
-											<input type="text" name="address" class="form-control" placeholder="Address" />
+											<input type="text" name="address" class="form-control" placeholder="Address" value="{{ old('address') }}"/>
 										</div>
 									</div>
 									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -75,7 +75,7 @@
 											<select name="country_id" class="custom-select country">
 											  <option value="">-- Select Country --</option>
                                               @foreach ($countries as $country)
-											  <option value="{{ $country->id }}">{{ $country->name }}</option>
+											  <option @selected(old('country_id')==$country->id) value="{{ $country->id }}">{{ $country->name }}</option>
                                               @endforeach
 
 											</select>
@@ -95,7 +95,7 @@
 									<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 										<div class="form-group">
 											<label class="text-dark">ZIP / Postcode *</label>
-											<input type="text" name="zip" class="form-control" placeholder="Zip / Postcode" />
+											<input type="text" name="zip" class="form-control" placeholder="Zip / Postcode" value="{{ old('zip') }}"/>
 										</div>
 									</div>
 
@@ -166,15 +166,15 @@
 									<h6>Select Payment Method</h6>
 									<ul class="no-ul-list">
 										<li>
-											<input id="c3" class="radio-custom" name="payment_method" type="radio">
+											<input id="c3" class="radio-custom" name="payment_method" type="radio" value="1">
 											<label for="c3" class="radio-custom-label">Cash on Delivery</label>
 										</li>
 										<li>
-											<input id="c4" class="radio-custom" name="payment_method" type="radio">
+											<input id="c4" class="radio-custom" name="payment_method" type="radio" value="2">
 											<label for="c4" class="radio-custom-label">Pay With SSLCommerz</label>
 										</li>
 										<li>
-											<input id="c5" class="radio-custom" name="payment_method" type="radio">
+											<input id="c5" class="radio-custom" name="payment_method" type="radio" value="3">
 											<label for="c5" class="radio-custom-label">Pay With Stripe</label>
 										</li>
 									</ul>
@@ -201,13 +201,14 @@
                                   @endphp
                                   @if ($coupon_dis)
 								  <li class="list-group-item d-flex text-dark fs-sm ft-regular">
-									<span>Coupon discount</span> <span class="ml-auto text-dark ft-medium" >&#2547;<span id="dis_amount">{{  $dis_amount }}</span></span>
+									<span>Coupon discount</span> <span class="ml-auto text-dark ft-medium" >&#2547;<span >{{  $dis_amount }}</span></span>
 								  </li>
                                   @endif
                                   @php
                                      $total_amount = $sub_total - $coupon_dis;
                                   @endphp
-
+                                    <input type="hidden" id="dis_amount"value="{{ $dis_amount }}" name="discount">
+                                    <input type="hidden" value="{{ $sub_total }}" name="sub_total">
 								  <li class="list-group-item d-flex text-dark fs-sm ft-regular">
 									<span>Total</span> <span class="ml-auto text-dark ft-medium">&#2547;<span id="total">{{  $total_amount}}</span></span>
 								  </li>
@@ -249,7 +250,7 @@
 $('.charge').click(function(){
     let charge = $(this).val();
     let sub_total = $('#sub_total').html();
-    let dis_amount = $('#dis_amount').html();
+    let dis_amount = $('#dis_amount').val();
     $('#del_charge').html(charge)
     $('#total').html(parseInt(sub_total)+parseInt(charge) - parseInt(dis_amount));
 })

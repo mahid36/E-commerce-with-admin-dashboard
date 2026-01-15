@@ -87,6 +87,10 @@ Route::get('/delete/coupon/{id}',[CouponController::class,'delete_coupon'])->nam
 
 //Checkout//
 Route::post('getCity',[CheckoutController::class,'getCity']);
+Route::post('/store/checkout',[CheckoutController::class,'store_checkout'])->name('store.checkout');
+Route::get('/order/success/{id}',[CheckoutController::class,'order_success'])->name('order.success');
+
+
 
 
 
