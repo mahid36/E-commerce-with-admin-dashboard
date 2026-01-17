@@ -28,6 +28,7 @@ return new class extends Migration
             $table->integer('zip');
             $table->string('company')->nullable();
             $table->string('additional')->nullable();
+            $table->string('status')->default(0);
             $table->timestamps();
         });
     }

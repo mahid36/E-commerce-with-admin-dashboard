@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -138,5 +139,11 @@ class CustomerController extends Controller
                 return back()->with('success', 'Profile updated');
             }
         }
+    }
+    function customer_order(){
+        $myorders = Order::where('customer_id',Auth::guard('customer')->id())->get();
+        return view('frontend.orders',[
+            'myorders'=>$myorders,
+        ]);
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 
@@ -72,6 +73,7 @@ Route::post('customer/signin', [CustomerController::class, 'customer_signin'])->
 Route::get('customer/profile', [CustomerController::class, 'customer_profile'])->name('customer.profile');
 Route::get('customer/logout', [CustomerController::class, 'customer_logout'])->middleware('auth:customer') ->name('customer.logout');
 Route::post('customer/update', [CustomerController::class, 'customer_update'])->middleware('auth:customer') ->name('customer.update');
+Route::get('customer/order', [CustomerController::class, 'customer_order'])->middleware('auth','verified') ->name('customer.order');
 
 
 //<-----Cart----->
@@ -89,6 +91,9 @@ Route::get('/delete/coupon/{id}',[CouponController::class,'delete_coupon'])->nam
 Route::post('getCity',[CheckoutController::class,'getCity']);
 Route::post('/store/checkout',[CheckoutController::class,'store_checkout'])->name('store.checkout');
 Route::get('/order/success/{id}',[CheckoutController::class,'order_success'])->name('order.success');
+
+//Orders//
+Route::get('orders',[OrderController::class,'orders'])->name('orders');
 
 
 
