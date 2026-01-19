@@ -12,4 +12,5 @@ class order extends Model
     function rel_to_country(){
         return $this->belongsTo(Country::class,'country_id');
     }
+    protected $guarded = ['id'];
 }

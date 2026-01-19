@@ -55,12 +55,26 @@
 									<div class="olh_flex">
 										<p class="m-0 p-0"><span class="text-muted">Order Number</span></p>
 										<h6 class="mb-0 ft-medium">{{ $order->order_id }}</h6>
+                                          <a href="{{ route('invoice.download',$order->order_id) }}" class="badge badge-primary">Download Invoice</a>
+
 									</div>
                                     <div class="col-xl-2 col-lg-2 col-md-2 col-12 ml-auto">
 											<p class="mb-1 p-0"><span class="text-muted">Status</span></p>
-											<div class="delv_status"><span class="ft-medium small text-warning bg-light-warning rounded px-3 py-1">Completed</span>
+											<div class="delv_status">
+                                                @if ($order->status == 0)
+                                                     <span class="ft-medium small text-white bg-secondary rounded px-3 py-1">Placed</span>
+                                                @elseif ($order->status == 1)
+                                                     <span class="ft-medium small text-white bg-info rounded px-3 py-1">Processing</span>
+                                                @elseif ($order->status == 2)
+                                                     <span class="ft-medium small text-white bg-warning rounded px-3 py-1">Shipped</span>
+                                                @elseif ($order->status == 3)
+                                                     <span class="ft-medium small text-white bg-success rounded px-3 py-1">Delivered</span>
+                                                @elseif ($order->status == 4)
+                                                     <span class="ft-medium small text-white bg-danger rounded px-3 py-1">Canceled</span>
+                                                @endif
                                             </div>
 									</div>
+
 								</div>
 									<div class="row align-items-center justify-content-center m-0  br-bottom">
 										<div class="col-xl-5 col-lg-5 col-md-5 col-12">

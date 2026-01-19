@@ -94,6 +94,8 @@ Route::get('/order/success/{id}',[CheckoutController::class,'order_success'])->n
 
 //Orders//
 Route::get('orders',[OrderController::class,'orders'])->name('orders');
+Route::post('order/status/{id}',[OrderController::class,'order_status'])->name('order.status');
+Route::get('invoice/download/{order_id}',[OrderController::class,'invoice_download'])->name('invoice.download');
 
 
 
