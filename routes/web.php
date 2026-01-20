@@ -10,6 +10,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 
@@ -99,7 +100,10 @@ Route::get('invoice/download/{order_id}',[OrderController::class,'invoice_downlo
 
 
 
-
+Route::controller(StripePaymentController::class)->group(function(){
+    Route::get('stripe/{order_id}', 'stripe')->name('stripe');
+    Route::post('stripe/{order_id}', 'stripePost')->name('stripe.post');
+});
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

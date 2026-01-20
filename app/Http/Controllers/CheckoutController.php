@@ -34,7 +34,10 @@ class CheckoutController extends Controller
             ]);
 
             $order_id = uniqid();
-            Order::insert([
+
+            //payment methods//
+            if($request->payment_method == 1){
+                Order::insert([
                 'order_id'=>$order_id,
                 'customer_id'=>Auth::guard('customer')->id(),
                 'total'=> $request->sub_total + $request->charge - $request->discount,
@@ -74,7 +77,54 @@ class CheckoutController extends Controller
 
 
             return redirect()->route('order.success',$order_id);
+            }
+
+            //SSL//
+            else if($request->payment_method == 2){
+                echo"SSL";
+            }
+
+            //stripe//
+            else if($request->payment_method == 3){
+                Order::insert([
+                'order_id'=>$order_id,
+                'customer_id'=>Auth::guard('customer')->id(),
+                'total'=> $request->sub_total + $request->charge - $request->discount,
+                'discount'=>$request->discount,
+                'payment_method'=>$request->payment_method,
+                'charge'=>$request->charge,
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'phone'=>$request->mobile,
+                'address'=>$request->address,
+                'country_id'=>$request->country_id,
+                'city_id'=>$request->city_id,
+                'zip'=>$request->zip,
+                'company'=>$request->company,
+                'additional'=>$request->additional,
+                'created_at'=>Carbon::now(),
+            ]);
+
+            //  $carts= Cart:: where('customer_id',Auth::guard('customer')->id())->get();
+            //     foreach($carts as $cart){
+            //       OrderProduct::insert([
+            //         'order_id'=>$order_id,
+            //         'customer_id'=>Auth::guard('customer')->id(),
+            //         'product_id'=>$cart->product_id,
+            //         'color_id'=>$cart->color_id,
+            //         'size_id'=>$cart->size_id,
+            //         'price'=>Inventory::where('product_id',$cart->product_id)->where('color_id',$cart->color_id)->where('size_id',$cart->size_id)->first()->discount_price,
+            //         'quantity'=>$cart->quantity,
+            //         'created_at'=>Carbon::now(),
+
+            //       ]);
+            //       Inventory::where('product_id',$cart->product_id)->where('color_id',$cart->color_id)->where('size_id',$cart->size_id)->decrement('quantity',$cart->quantity);
+            //     }
+
+            return redirect()->route('stripe',$order_id);
+            }
     }
+
     function order_success($id){
         return view('frontend.order_success',[
             'order_id'=>$id,
