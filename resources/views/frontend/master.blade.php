@@ -90,11 +90,11 @@
 										</a>
 									</div>
 									<div class="headd-sty-02 ml-3">
-										<form class="bg-white rounded-md border-bold">
+										<form class="bg-white rounded-md border-bold" method="get" action="{{ route('search.product') }}">
 											<div class="input-group">
-												<input type="text" class="form-control custom-height b-0" placeholder="Search for products..." />
+												<input type="text" name="keyword" class="form-control custom-height b-0" placeholder="Search for products..." />
 												<div class="input-group-append">
-													<div class="input-group-text"><button class="btn bg-white text-danger custom-height rounded px-3" type="button"><i class="fas fa-search"></i></button></div>
+													<div class="input-group-text"><button class="btn bg-white text-danger custom-height rounded px-3" type="submit"><i class="fas fa-search"></i></button></div>
 												</div>
 											</div>
 										</form>

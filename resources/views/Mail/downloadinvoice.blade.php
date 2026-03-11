@@ -258,9 +258,9 @@ footer {
           <tr>
             <td class="no">{{ $index+1 }}</td>
             <td class="desc">{{ $product->rel_to_product->product_name }}</td>
-            <td class="unit">&#2547;{{ $product->price }}</td>
+            <td class="unit">TK{{ $product->price }}</td>
             <td class="qty">{{ $product->quantity }}</td>
-            <td class="total">&#2547;{{ $product->price * $product->quantity }}</td>
+            <td class="total">TK{{ $product->price * $product->quantity }}</td>
           </tr>
         @endforeach
         </tbody>
@@ -268,22 +268,22 @@ footer {
           <tr>
             <td colspan="2"></td>
             <td colspan="2">SUBTOTAL</td>
-            <td>&#2547;{{ $order->total - $order->discount }}</td>
+            <td>TK{{ $order->total - $order->discount }}</td>
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">CHARGE</td>
-            <td>&#2547;{{  $order->charge }}</td>
+            <td>TK{{  $order->charge }}</td>
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">DISCOUNT</td>
-            <td>&#2547;{{ $order->discount }}</td>
+            <td>TK{{ $order->discount }}</td>
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">GRAND TOTAL</td>
-            <td>&#2547;{{ $order->total }}</td>
+            <td>TK{{ $order->total }}</td>
           </tr>
         </tfoot>
       </table>

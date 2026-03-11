@@ -14,20 +14,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use App\Mail\InvoiceMail;
+use App\Models\StripeOrder;
 
 class StripePaymentController extends Controller
 {
     public function stripe($order_id): View
     {
-        return view('stripe', compact('order_id'));
+        $total = StripeOrder :: where('order_id',$order_id)->first()->total;
+        return view('stripe',[
+            'order_id' => $order_id,
+            'total' => $total
+        ]);
     }
 
     public function stripePost(Request $request, $order_id): RedirectResponse
     {
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        $order = Order::where('order_id', $order_id)->firstOrFail();
-        $total = $order->total;
+         $stripe_order = StripeOrder::where('order_id', $order_id)->firstOrFail();
+        $total = $stripe_order->total;
 
         $charge = Stripe\Charge::create([
             "amount" => $total * 100,
@@ -35,10 +40,27 @@ class StripePaymentController extends Controller
             "source" => $request->stripeToken,
             "description" => "Order Payment"
         ]);
+             Order::insert([
+                'order_id'=>$order_id,
+                'customer_id'=>Auth::guard('customer')->id(),
+                'total'=>  $stripe_order->total,
+                'discount'=> $stripe_order->discount,
+                'payment_method'=> $stripe_order->payment_method,
+                'charge'=> $stripe_order->charge,
+                'name'=> $stripe_order->name,
+                'email'=> $stripe_order->email,
+                'phone'=> $stripe_order->phone,
+                'address'=> $stripe_order->address,
+                'country_id'=> $stripe_order->country_id,
+                'city_id'=> $stripe_order->city_id,
+                'zip'=> $stripe_order->zip,
+                'company'=> $stripe_order->company,
+                'additional'=> $stripe_order->additional,
+                'created_at'=>Carbon::now(),
+            ]);
 
         if ($charge->status === 'succeeded') {
 
-            $order->update(['status' => 1]);
 
             $carts = Cart::where('customer_id', Auth::guard('customer')->id())->get();
 
@@ -65,7 +87,7 @@ class StripePaymentController extends Controller
 
             Cart::where('customer_id', Auth::guard('customer')->id())->delete();
 
-            Mail::to($order->email)->send(new InvoiceMail($order_id));
+            Mail::to($stripe_order->email)->send(new InvoiceMail($order_id));
 
             return redirect()->route('order.success', $order_id);
         }

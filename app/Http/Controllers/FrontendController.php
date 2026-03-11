@@ -87,4 +87,15 @@ class FrontendController extends Controller
         ]);
 
     }
+    function search_product(Request $request){
+      $search_products = Product::
+      where('product_name','LIKE','%'. $request->keyword .'%')
+      ->orwhere('short_des','LIKE','%'. $request->keyword .'%')
+      ->orwhere('long_des','LIKE','%'. $request->keyword .'%')
+      ->get();
+
+        return view('frontend.search',[
+            'search_products'=>$search_products
+        ]);
+    }
 }

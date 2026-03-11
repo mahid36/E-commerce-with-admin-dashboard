@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 Route::get('/',[FrontendController::class,'index'])->middleware(['auth', 'verified'])->name('index');
 
@@ -24,7 +25,10 @@ Route::get('/product/details/{slug}',[FrontendController::class,'product_details
  //login + register--->
 Route::get('/customer/register',[FrontendController::class,'customer_register'])->middleware(['auth', 'verified'])->name('customer.register');
 Route::get('/customer/login',[FrontendController::class,'customer_login'])->middleware(['auth', 'verified'])->name('customer.login');
+Route::get('/customer/login',[FrontendController::class,'customer_login'])->middleware(['auth', 'verified'])->name('customer.login');
 Route::get('checkout',[FrontendController::class,'checkout'])->middleware(['auth', 'verified'])->name('checkout');
+Route::get('search/product',[FrontendController::class,'search_product'])->middleware(['auth', 'verified'])->name('search.product');
+
 
 //   <--------Dashboard section------> :
 Route::get('/dashboard', function () {
@@ -110,5 +114,16 @@ Route::controller(StripePaymentController::class)->group(function(){
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
+
+// SSLCOMMERZ Start
+Route::get('/pay/{order_id}', [SslCommerzPaymentController::class, 'index'])->name('pay');
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
 
 require __DIR__.'/auth.php';

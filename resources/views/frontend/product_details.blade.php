@@ -202,7 +202,7 @@
                     <!-- Description Content -->
                     <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                         <div class="description_info">
-                            {!! $product_info->long_desp !!}
+                            {!! $product_info->long_des !!}
                         </div>
                     </div>
 

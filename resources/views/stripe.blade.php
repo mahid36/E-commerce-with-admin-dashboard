@@ -40,7 +40,7 @@
                             class="btn btn-success mt-3"
                             type="button"
                             style="margin-top: 20px; width: 100%;padding: 7px;"
-                            onclick="createToken()">PAY $10
+                            onclick="createToken()">Pay <span style="font-size: 20px">&#2547;</span>{{ $total }}
                         </button>
                     <form>
                 </div>
