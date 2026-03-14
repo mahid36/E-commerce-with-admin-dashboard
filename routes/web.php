@@ -80,6 +80,12 @@ Route::get('customer/logout', [CustomerController::class, 'customer_logout'])->m
 Route::post('customer/update', [CustomerController::class, 'customer_update'])->middleware('auth:customer') ->name('customer.update');
 Route::get('customer/order', [CustomerController::class, 'customer_order'])->middleware('auth','verified') ->name('customer.order');
 
+//forgot password//
+Route::get('forgot/password', [CustomerController::class, 'forgot_password'])->middleware('auth','verified') ->name('forgot.password');
+Route::post('send/pass/req', [CustomerController::class, 'send_pass_req'])->middleware('auth','verified') ->name('send.pass.req');
+Route::get('reset/form/{token}', [CustomerController::class, 'reset_form'])->middleware('auth','verified') ->name('reset.form');
+Route::post('reset/confirm/{token}', [CustomerController::class, 'reset_confirm'])->middleware('auth','verified') ->name('reset.confirm');
+
 
 //<-----Cart----->
 Route::post('/getSize',[CartController::class,'getSize']);

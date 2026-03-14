@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\PassReset;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\PassResetNotification;
 
 class CustomerController extends Controller
 {
@@ -145,5 +148,53 @@ class CustomerController extends Controller
         return view('frontend.orders',[
             'myorders'=>$myorders,
         ]);
+    }
+    //password reset//
+    function forgot_password(){
+        return view('frontend.forgot_password');
+    }
+
+    function send_pass_req(Request $request){
+        if(Customer::where('email',$request->email)->exists()){
+            $token = uniqid();
+            $customer = Customer::where('email',$request->email)->first();
+                if(PassReset::where('customer_id',$customer->id)->exists()){
+                    PassReset::where('customer_id',$customer->id)->delete();
+                }
+                 PassReset::insert([
+                'token'=>$token,
+                'customer_id'=>$customer->id,
+            ]);
+
+            Notification::send($customer, new PassResetNotification( $token));
+        }
+        else{
+            return back()->with('nt_exists', 'Email Does not Exist');
+        }
+    }
+    function reset_form($token){
+        return view('frontend.reset_form',[
+            'token'=>$token,
+        ]);
+    }
+    function reset_confirm(Request $request, $token){
+        $customer = PassReset::where('token',$token)->first();
+
+        if(PassReset::where('token',$token)->exists()){
+            $request->validate([
+                'password'=>'required | confirmed',
+                'password_confirmation'=>'required',
+            ]);
+            Customer::find($customer->customer_id)->update([
+                'password'=>bcrypt($request->password),
+
+            ]);
+            PassReset::where('token',$token)->delete();
+
+              return back()->with('success','Password changed successfully');
+        }
+        else{
+            return back()->with('Expired','Link Expired, Try Again');
+        }
     }
 }
