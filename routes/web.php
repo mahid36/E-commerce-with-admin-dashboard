@@ -29,6 +29,9 @@ Route::get('/customer/login',[FrontendController::class,'customer_login'])->midd
 Route::get('checkout',[FrontendController::class,'checkout'])->middleware(['auth', 'verified'])->name('checkout');
 Route::get('search/product',[FrontendController::class,'search_product'])->middleware(['auth', 'verified'])->name('search.product');
 
+//review
+Route::post('review/{id}',[FrontendController::class,'review'])->middleware(['auth', 'verified'])->name('review');
+
 
 //   <--------Dashboard section------> :
 Route::get('/dashboard', function () {

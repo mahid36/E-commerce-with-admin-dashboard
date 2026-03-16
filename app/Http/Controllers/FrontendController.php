@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Country;
 use App\Models\City;
 use App\Models\Coupon;
+use App\Models\OrderProduct;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,7 @@ class FrontendController extends Controller
     }
     function product_details($slug){
         $product_id = Product::where('slug',$slug)->first()->id;
+        $reviews =OrderProduct::where('product_id',$product_id)->whereNotNull('review')->get();
         $product_info = Product::find($product_id);
         $similler_products =Product::where('category_id', $product_info->category_id)->where('id','!=',$product_id)->get();
 
@@ -50,6 +52,7 @@ class FrontendController extends Controller
             'available_colors'=>$available_colors,
             'available_sizes'=>$available_sizes,
             'similler_products'=>  $similler_products,
+            'reviews'=>  $reviews,
         ]);
     }
     function customer_register(){
@@ -97,5 +100,13 @@ class FrontendController extends Controller
         return view('frontend.search',[
             'search_products'=>$search_products
         ]);
+    }
+    function  review(Request $request,$id){
+        OrderProduct::where('customer_id',Auth::guard('customer')->id())
+        ->where('product_id',$id)->first()->update([
+            'rating'=>$request->rating,
+            'review'=>$request->review,
+        ]);
+        return back()->with('reviewed','Thanks for your review');
     }
 }

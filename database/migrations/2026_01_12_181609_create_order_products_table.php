@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('size_id');
             $table->integer('price');
             $table->integer('quantity');
+            $table->integer('rating')->nullable();
+            $table->string('review')->nullable();
             $table->timestamps();
         });
     }

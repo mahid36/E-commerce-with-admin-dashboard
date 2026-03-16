@@ -72,7 +72,7 @@ class CheckoutController extends Controller
                   ]);
                   Inventory::where('product_id',$cart->product_id)->where('color_id',$cart->color_id)->where('size_id',$cart->size_id)->decrement('quantity',$cart->quantity);
                 }
-            // Cart:: where('customer_id',Auth::guard('customer')->id())->delete();
+            Cart:: where('customer_id',Auth::guard('customer')->id())->delete();
 
             Mail::to($request->email)->send(new InvoiceMail($order_id));
 
