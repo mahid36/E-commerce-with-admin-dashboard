@@ -21,16 +21,22 @@ class FrontendController extends Controller
         $category = Category::all();
         $products = Product::all();
         $recent_products = Product::latest()->take(3)->get();
+    $top_selling = OrderProduct::groupBy('product_id')
+        ->selectRaw('sum(quantity) as sum, product_id')
+        ->orderBy('sum', 'DESC')->take(3)->get();
       return view('frontend.index',[
         'categories'=>$category,
         'products' =>$products,
         'recent_products'=>$recent_products,
+        'top_selling'=>$top_selling,
 
       ]);
     }
     function product_details($slug){
         $product_id = Product::where('slug',$slug)->first()->id;
         $reviews =OrderProduct::where('product_id',$product_id)->whereNotNull('review')->get();
+        $total_review = OrderProduct::where('product_id',$product_id)->whereNotNull('review')->count();
+        $total_stars = OrderProduct::where('product_id',$product_id)->whereNotNull('review')->sum('rating');
         $product_info = Product::find($product_id);
         $similler_products =Product::where('category_id', $product_info->category_id)->where('id','!=',$product_id)->get();
 
@@ -53,6 +59,8 @@ class FrontendController extends Controller
             'available_sizes'=>$available_sizes,
             'similler_products'=>  $similler_products,
             'reviews'=>  $reviews,
+            'total_review'=>  $total_review,
+            'total_stars'=>  $total_stars,
         ]);
     }
     function customer_register(){

@@ -346,77 +346,50 @@
                         <div class="row">
 
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                                <div class="top-seller-title"><h4 class="ft-medium">Top Seller</h4></div>
+                                <div class="top-seller-title"><h4 class="ft-medium">Top Selling Product</h4></div>
                                 <div class="ftr-content">
 
                                     <!-- Single Item -->
-                                    <div class="product_grid row">
-                                        <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                                            <div class="shop_thumb position-relative">
-                                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend_asset')}}/img/shop/1.png" alt="..."></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                                            <div class="text-left mfliud">
-                                                <div class="elso_titl"><span class="small">Mobiles</span></div>
-                                                <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">Zoomio iPhones</a></h5>
-                                                <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$99 - $129</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @foreach ($top_selling as $top)
 
-                                    <!-- Single Item -->
-                                    <div class="product_grid row">
-                                        <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                                            <div class="shop_thumb position-relative">
-                                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend_asset')}}/img/shop/2.png" alt="..."></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                                            <div class="text-left mfliud">
-                                                <div class="elso_titl"><span class="small">TV/LED</span></div>
-                                                <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">32 Inch Smart LED</a></h5>
-                                                <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$799 - $1200</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- Single Item -->
                                     <div class="product_grid row">
                                         <div class="col-xl-4 col-lg-5 col-md-5 col-4">
                                             <div class="shop_thumb position-relative">
-                                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend_asset')}}/img/shop/10.png" alt="..."></a>
+                                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('uploads/product/preview')}}/{{ $top->rel_to_product->preview }}" alt="..."></a>
                                             </div>
                                         </div>
                                         <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
                                             <div class="text-left mfliud">
-                                                <div class="elso_titl"><span class="small">Headphone</span></div>
-                                                <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">Ziomi Headphone</a></h5>
+                                                <div class="elso_titl"><span class="small">{{ $top->rel_to_product->rel_to_category->category_name }}</span></div>
+                                                <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="{{ route('product.details', $top->rel_to_product->slug) }}">{{ $top->rel_to_product->product_name }}</a></h5>
                                                 <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star"></i>
+                                                    @php
+                                                        $total_review = App\Models\OrderProduct::where('product_id',$top->product_id)
+                                                        ->whereNotNull('review')->count();
+                                                        $total_stars = App\Models\OrderProduct::where('product_id',$top->product_id)
+                                                        ->whereNotNull('review')->sum('rating');
+                                                        $avg =0;
+                                                        if($total_review ==0){
+                                                            $avg =0;
+                                                        }
+                                                        else{
+                                                            $avg = round($total_stars / $total_review);
+                                                        }
+                                                    @endphp
+                                                    @for ($i=1; $i<=$avg; $i++)
+                                                        <i class="fas fa-star filled"></i>
+                                                    @endfor
+                                                    @for ($avg; $avg<5; $avg++)
+                                                         <i class="fas fa-star"></i>
+                                                    @endfor
+
                                                 </div>
-                                                <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$49 - $110</span></div>
+                                                <div class="elis_rty"><span class="ft-bold text-dark fs-sm">&#2547;{{ $top->rel_to_product->rel_to_inv->first()->price }}</span></div>
                                             </div>
                                         </div>
                                     </div>
+                                    @endforeach
 
                                 </div>
                             </div>

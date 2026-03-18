@@ -31,6 +31,14 @@
                     @endforeach
                 </div>
             </div>
+            @php
+               $avg = '';
+               if($total_review == 0){
+                   $avg = 0;
+               }else{
+                   $avg = round($total_stars / $total_review);
+               }
+            @endphp
 
             <div class="col-xl-7 col-lg-6 col-md-12 col-sm-12">
                 <div class="prd_details pl-3">
@@ -40,12 +48,14 @@
                         <h2 class="ft-bold mb-1">{{ $product_info->product_name }}</h2>
                         <div class="text-left">
                             <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star"></i>
-                                <span class="small">(412 Reviews)</span>
+                                @for ($i = 1; $i<=$avg; $i++)
+                                    <i class="fas fa-star filled"></i>
+                                @endfor
+                                @for ($avg; $avg<5; $avg++)
+                                  <i class="fas fa-star"></i>
+                                @endfor
+
+                                <span class="small">({{ $total_review }} Reviews)</span>
                             </div>
                             <div class="elis_rty">
                                 <span class="ft-medium text-muted line-through fs-md mr-2 ">&#2547;<span class="o-price">{{ optional($product_info->rel_to_inv->first())->price }}</span></span>
@@ -358,7 +368,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div class="sec_title position-relative text-center">
                     <h2 class="off_title">Similar Products</h2>
-                    <h3 class="ft-bold pt-3">Matching Producta</h3>
+                    <h3 class="ft-bold pt-3">Matching Product</h3>
                 </div>
             </div>
         </div>
