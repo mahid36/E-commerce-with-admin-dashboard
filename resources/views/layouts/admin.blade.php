@@ -111,34 +111,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  data-toggle="collapse" href="#charts" role="button" aria-expanded="false" aria-controls="charts">
+            <a class="nav-link"   href="{{ route('role') }}"  >
               <i class="link-icon" data-feather="pie-chart"></i>
-              <span class="link-title">Charts</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
-            </a>
-            <div class="collapse" id="charts">
-              <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="../../pages/charts/apex.html" class="nav-link">Apex</a>
-                </li>
-                <li class="nav-item">
-                  <a href="../../pages/charts/chartjs.html" class="nav-link">ChartJs</a>
-                </li>
-                <li class="nav-item">
-                  <a href="../../pages/charts/flot.html" class="nav-link">Flot</a>
-                </li>
-                <li class="nav-item">
-                  <a href="../../pages/charts/morrisjs.html" class="nav-link">Morris</a>
-                </li>
-                <li class="nav-item">
-                  <a href="../../pages/charts/peity.html" class="nav-link">Peity</a>
-                </li>
-                <li class="nav-item">
-                  <a href="../../pages/charts/sparkline.html" class="nav-link">Sparkline</a>
-                </li>
-              </ul>
-            </div>
-          </li>
+              <span class="link-title">Role Maneger</span>
+          {{-- </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#tables" role="button" aria-expanded="false" aria-controls="tables">
               <i class="link-icon" data-feather="layout"></i>
@@ -246,7 +222,7 @@
               <i class="link-icon" data-feather="hash"></i>
               <span class="link-title">Documentation</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </div>
     </nav>

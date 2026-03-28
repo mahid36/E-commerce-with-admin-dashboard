@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
+    //index page//
     function index(){
         $category = Category::all();
         $products = Product::all();
@@ -32,6 +33,7 @@ class FrontendController extends Controller
 
       ]);
     }
+    //product details page//
     function product_details($slug){
         $product_id = Product::where('slug',$slug)->first()->id;
         $reviews =OrderProduct::where('product_id',$product_id)->whereNotNull('review')->get();
@@ -63,12 +65,14 @@ class FrontendController extends Controller
             'total_stars'=>  $total_stars,
         ]);
     }
+    //user login//
     function customer_register(){
          return view('frontend.register');
     }
     function customer_login(){
         return view("frontend.login");
     }
+    //checkout page//
     function checkout(Request $request){
         $carts= Cart:: where('customer_id',Auth::guard('customer')->id())->get();
         $coupon = $request->coupon;
@@ -98,6 +102,7 @@ class FrontendController extends Controller
         ]);
 
     }
+    //search product//
     function search_product(Request $request){
       $search_products = Product::
       where('product_name','LIKE','%'. $request->keyword .'%')
@@ -109,6 +114,7 @@ class FrontendController extends Controller
             'search_products'=>$search_products
         ]);
     }
+    //review page//
     function  review(Request $request,$id){
         OrderProduct::where('customer_id',Auth::guard('customer')->id())
         ->where('product_id',$id)->first()->update([

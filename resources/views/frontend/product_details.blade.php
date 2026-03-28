@@ -275,8 +275,10 @@
                             </div>
                             @endforeach
                         </div>
+
                             @auth('customer')
                             @if (App\Models\OrderProduct::where('customer_id',Auth::guard('customer')->id())->where('product_id',$product_info->id)->exists())
+
                         <div class="reviews_rate">
                             <form class="row" action="{{ route('review', $product_info->id) }}" method="POST">
                                 @csrf
@@ -401,11 +403,9 @@
                         </div>
                     </div>
                     @endforeach
-
                 </div>
             </div>
         </div>
-
     </div>
 </section>
 <!-- ======================= Similar Products Start ============================ -->
@@ -415,7 +415,6 @@
 <section class="px-0 py-3 br-top">
     <div class="container">
         <div class="row">
-
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div class="d-flex align-items-center justify-content-start py-2">
                     <div class="d_ico">
@@ -427,7 +426,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div class="d-flex align-items-center justify-content-start py-2">
                     <div class="d_ico">
@@ -439,7 +437,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div class="d-flex align-items-center justify-content-start py-2">
                     <div class="d_ico">
@@ -480,6 +477,7 @@
 });
     </script>
 @endif
+
 <script>
     $('#cart').click(function(){
         Swal.fire({
@@ -490,6 +488,7 @@
         });
     })
 </script>
+
 <script>
 
     $('.rating').click(function(){
@@ -541,6 +540,7 @@
 
     })
 </script>
+
 <script>
 let counter = 1;
 
@@ -565,6 +565,7 @@ document.getElementById("decrementBtn").addEventListener("click", decrement);
 
 updateDisplay();
 </script>
+
 @if (session('cart'))
 <script>
     const Toast = Swal.mixin({

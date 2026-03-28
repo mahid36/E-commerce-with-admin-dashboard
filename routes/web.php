@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
 Route::get('/',[FrontendController::class,'index'])->middleware(['auth', 'verified'])->name('index');
@@ -29,7 +30,7 @@ Route::get('/customer/login',[FrontendController::class,'customer_login'])->midd
 Route::get('checkout',[FrontendController::class,'checkout'])->middleware(['auth', 'verified'])->name('checkout');
 Route::get('search/product',[FrontendController::class,'search_product'])->middleware(['auth', 'verified'])->name('search.product');
 
-//review
+//review//
 Route::post('review/{id}',[FrontendController::class,'review'])->middleware(['auth', 'verified'])->name('review');
 
 
@@ -39,7 +40,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-
+//profile section//
 Route::get('/edit/profile',[UserController::class,'edit_profile'])->middleware(['auth', 'verified'])->name('edit_profile');
 Route::post('/update/profile',[UserController::class,'update_profile'])->middleware(['auth', 'verified'])->name('update_profile');
 Route::post('/update/password',[UserController::class,'update_password'])->middleware(['auth', 'verified'])->name('update_password');
@@ -49,8 +50,6 @@ Route::get('add/category', [CategoryController::class, 'add_category'])->middlew
 Route::post('store/category', [CategoryController::class, 'store_category'])->middleware(['auth', 'verified'])->name('store.category');
 
 Route::post('store/product', [CategoryController::class, 'store_product'])->middleware(['auth', 'verified'])->name('store.product');
-
-
 Route::get('category/delete/{id}', [CategoryController::class, 'category_delete'])->middleware(['auth', 'verified'])->name('category.delete');
 Route::get('permanent/delete/{id}', [CategoryController::class, 'permanent_delete'])->middleware(['auth', 'verified'])->name('permanent.delete');
 Route::get('restore/{id}', [CategoryController::class, 'restore'])->middleware(['auth', 'verified'])->name('restore');
@@ -63,7 +62,7 @@ Route:: get('add/tag',[TagController::class,'add_tag'])->middleware(['auth', 've
 Route:: post('store/tag',[TagController::class,'store_tag'])->middleware(['auth', 'verified'])->name('store.tag');
 Route:: get('delete/tag/{id}',[TagController::class,'delete_tag'])->middleware(['auth', 'verified'])->name('delete.tag');
 
-//Product
+//Products//
 
 Route::get('add/product',[ProductController::class,'add_product'])->middleware(['auth', 'verified'])->name('add.product');
 Route::post('store/product',[ProductController::class,'store_product'])->middleware(['auth', 'verified'])->name('store.product');
@@ -96,7 +95,7 @@ Route::post('/getQuantity',[CartController::class,'getquantity']);
 Route::post('/add/cart',[CartController::class,'add_cart'])->name('add.cart');
 Route::get('/remove/cart/{id}',[CartController::class,'remove_cart'])->name('remove.cart');
 
-//Coupon
+//Coupon//
 Route::get('coupon',[CouponController::class,'coupon'])->name('coupon');
 Route::post('/add/coupon',[CouponController::class,'add_coupon'])->name('add.coupon');
 Route::get('/delete/coupon/{id}',[CouponController::class,'delete_coupon'])->name('delete.coupon');
@@ -112,7 +111,7 @@ Route::post('order/status/{id}',[OrderController::class,'order_status'])->name('
 Route::get('invoice/download/{order_id}',[OrderController::class,'invoice_download'])->name('invoice.download');
 
 
-
+//stripe payment//
 Route::controller(StripePaymentController::class)->group(function(){
     Route::get('stripe/{order_id}', 'stripe')->name('stripe');
     Route::post('stripe/{order_id}', 'stripePost')->name('stripe.post');
@@ -124,7 +123,7 @@ Route::controller(StripePaymentController::class)->group(function(){
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-// SSLCOMMERZ Start
+// SSLCOMMERZ Start//
 Route::get('/pay/{order_id}', [SslCommerzPaymentController::class, 'index'])->name('pay');
 Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
 
@@ -134,5 +133,10 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+//Role Maneger
+Route::get('role',[RoleController::class,'role'])->middleware(['auth', 'verified'])->name('role');
+Route::post('create/permission',[RoleController::class,'create_permission'])->middleware(['auth', 'verified'])->name('create.permission');
+Route::post('add/role',[RoleController::class,'add_role'])->middleware(['auth', 'verified'])->name('add.role');
 
 require __DIR__.'/auth.php';
