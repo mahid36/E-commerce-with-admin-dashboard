@@ -138,5 +138,6 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 Route::get('role',[RoleController::class,'role'])->middleware(['auth', 'verified'])->name('role');
 Route::post('create/permission',[RoleController::class,'create_permission'])->middleware(['auth', 'verified'])->name('create.permission');
 Route::post('add/role',[RoleController::class,'add_role'])->middleware(['auth', 'verified'])->name('add.role');
+Route::post('assign/role',[RoleController::class,'assign_role'])->middleware(['auth', 'verified'])->name('assign.role');
 
 require __DIR__.'/auth.php';

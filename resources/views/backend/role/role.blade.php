@@ -31,6 +31,35 @@
                 </table>
             </div>
         </div>
+        <div class="card">
+            <div class="card-header">
+                <h3>User List</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>SL</th>
+                        <th>User Name</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                    @foreach ($users as $index=>$user )
+                    <tr>
+                        <td>{{ $index+1 }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td class="text-wrap">
+                            @foreach ($user->getRoleNames() as $role )
+                            <span class="my-1 badge badge-primary">{{ $role}}</span>
+                            @endforeach
+                        </td>
+                        <td>
+                            <a href="" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                     @endforeach
+                </table>
+            </div>
+        </div>
     </div>
     <div class="col-lg-4">
     <div class="card">
@@ -74,6 +103,37 @@
                 </div>
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Add Role</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="mt-3 card">
+        <div class="card-header">
+            <h3>Assign Role</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('assign.role') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label">Select User</label>
+                    <select name="user" class="form control">
+                        <option value="">Select User</option>
+                        @foreach ($users as $user)
+                         <option value="{{$user->id }}">{{$user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                 <div class="mb-3">
+                    <label class="form-label">Select Role</label>
+                    <select name="role" class="form control">
+                        <option value="">Select Role</option>
+                        @foreach ($roles as $role)
+                         <option value="{{$role->name }}">{{$role->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Assign Role</button>
                 </div>
             </form>
         </div>

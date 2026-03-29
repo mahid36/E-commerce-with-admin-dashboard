@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="row">
+    @can('edit_product')
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
@@ -97,6 +98,11 @@
             </div>
         </div>
     </div>
+    @else
+    <div>
+        <h3>You don't have permission for this site</h3>
+    </div>
+    @endcan
 </div>
 @endsection
 

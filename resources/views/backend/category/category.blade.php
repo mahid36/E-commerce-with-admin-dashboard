@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class="row">
+    @can('show_category')
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
@@ -58,6 +59,12 @@
             </div>
         </div>
     </div>
+    @else
+    <div>
+        <h3>You don't have permission for this site</h3>
+    </div>
+    @endcan
+    @can('add_category')
     <div class="col-lg-4">
         <div class="card">
             <div class="card-header">
@@ -87,6 +94,11 @@
             </div>
         </div>
     </div>
+    @else
+    <div>
+        <h3>You don't have permission for this site</h3>
+    </div>
+    @endcan
 </div>
 @endsection
 

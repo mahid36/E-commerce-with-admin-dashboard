@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class="row">
+    @can('show_subcategory')
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
@@ -24,7 +25,9 @@
                                 <tr>
                                     <td>{{ $sub->subcategory_name }}</td>
                                     <td>
+                                        @can('del_subcateory')
                                         <a href="{{ route('del.subcategory',$sub->id) }}" class="btn btn-danger">Delete</a>
+                                        @endcan
                                     </td>
                                 </tr>
 
@@ -42,6 +45,12 @@
             </div>
         </div>
     </div>
+    @else
+    <div>
+        <h3>You don't have permission for this site</h3>
+    </div>
+    @endcan
+    @can('add_subcategory')
     <div class="col-lg-4">
         <div class="card">
             <div class="card-header">
@@ -75,5 +84,10 @@
             </div>
         </div>
     </div>
+    @else
+    <div>
+        <h3>You don't have permission for this site</h3>
+    </div>
+    @endcan
 </div>
 @endsection

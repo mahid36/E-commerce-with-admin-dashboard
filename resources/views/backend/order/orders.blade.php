@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class="row">
+    @can('Order')
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
@@ -34,6 +35,7 @@
                            @endif
                         </td>
                         <td>
+                            @can('order_status')
                             <form action="{{ route('order.status',$order->id) }}" method="POST">
                                 @csrf
                                 <div class="dropdown">
@@ -49,6 +51,7 @@
                                     </div>
                                     </div>
                             </form>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach
@@ -56,5 +59,6 @@
             </div>
         </div>
     </div>
+    @endcan
 </div>
 @endsection
