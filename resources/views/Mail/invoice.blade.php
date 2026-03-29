@@ -193,22 +193,22 @@ footer {
           <tr>
             <td colspan="2"></td>
             <td colspan="2">SUBTOTAL</td>
-            <td>{{ $order->total + $order->discount - $order->charge  }}</td>
+            <td>&#2547;{{ $order->total + $order->discount - $order->charge  }}</td>
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">CHARGE</td>
-            <td>{{ $order->charge }}</td>
+            <td>&#2547;{{ $order->charge }}</td>
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">DISCOUNT</td>
-            <td>{{ $order->discount }}</td>
+            <td>&#2547;{{ $order->discount }}</td>
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">GRAND TOTAL</td>
-            <td>{{ $order->total }}</td>
+            <td>&#2547;{{ $order->total }}</td>
           </tr>
         </tfoot>
       </table>
