@@ -24,7 +24,7 @@
                             @endforeach
                         </td>
                         <td>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('delete.role',$role->id) }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                      @endforeach
@@ -53,7 +53,9 @@
                             @endforeach
                         </td>
                         <td>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            @if ($user->getRoleNames()->isNotEmpty())
+                            <a href="{{ route('remove.role',$user->id) }}" class="btn btn-danger">Remove Role</a>
+                              @endif
                         </td>
                     </tr>
                      @endforeach
@@ -141,4 +143,15 @@
  </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (session('remove'))
+    <script>
+        Swal.fire({
+            title: "Deleted!",
+            text: '{{ session('remove') }}',
+            icon: "success"
+        });
+    </script>
+@endif
 @endsection

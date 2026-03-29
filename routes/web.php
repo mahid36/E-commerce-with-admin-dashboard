@@ -139,5 +139,7 @@ Route::get('role',[RoleController::class,'role'])->middleware(['auth', 'verified
 Route::post('create/permission',[RoleController::class,'create_permission'])->middleware(['auth', 'verified'])->name('create.permission');
 Route::post('add/role',[RoleController::class,'add_role'])->middleware(['auth', 'verified'])->name('add.role');
 Route::post('assign/role',[RoleController::class,'assign_role'])->middleware(['auth', 'verified'])->name('assign.role');
+Route::get('remove/role{id}',[RoleController::class,'remove_role'])->middleware(['auth', 'verified'])->name('remove.role');
+Route::get('delete/role{role_id}',[RoleController::class,'delete_role'])->middleware(['auth', 'verified'])->name('delete.role');
 
 require __DIR__.'/auth.php';

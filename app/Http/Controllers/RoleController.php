@@ -33,4 +33,16 @@ class RoleController extends Controller
     $user -> assignRole($request->role);
     return back();
     }
+    function remove_role($id){
+        $user = User::find($id);
+        $user -> syncRoles([]);
+        $user -> syncPermissions([]);
+        return back()->with('remove','Role removed successfully');
+    }
+    function delete_role($role_id){
+        $role = Role::find($role_id);
+        $role-> syncPermissions([]);
+        $role-> delete();
+        return back();
+    }
 }
