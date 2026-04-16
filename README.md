@@ -1,6 +1,6 @@
 # 🛒 E-Commerce with Admin Dashboard
 
-![GitHub repo size](https://img.shields.io/github/repo-size/mahid36/E-commerce-with-admin-dashboard?style=for-the-badge)
+[![GitHub repo size](https://img.shields.io/github/repo-size/mahid36/E-commerce-with-admin-dashboard?style=for-the-badge)](https://github.com/mahid36/E-commerce-with-admin-dashboard/blob/9a4bd41beb1c61e22cb29a66397bf9afb5e9decf/Screenshots/home.png)
 ![GitHub stars](https://img.shields.io/github/stars/mahid36/E-commerce-with-admin-dashboard?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/mahid36/E-commerce-with-admin-dashboard?style=for-the-badge)
 ![GitHub issues](https://img.shields.io/github/issues/mahid36/E-commerce-with-admin-dashboard?style=for-the-badge)
