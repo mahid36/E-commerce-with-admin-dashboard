@@ -35,7 +35,7 @@
                            @endif
                         </td>
                         <td>
-                            @can('order_status')
+
                             <form action="{{ route('order.status',$order->id) }}" method="POST">
                                 @csrf
                                 <div class="dropdown">
@@ -51,7 +51,7 @@
                                     </div>
                                     </div>
                             </form>
-                            @endcan
+
                         </td>
                     </tr>
                     @endforeach
